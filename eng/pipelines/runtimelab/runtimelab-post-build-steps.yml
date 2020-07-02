@@ -20,6 +20,17 @@ steps:
       artifactName: CoreCLRProduct__${{ parameters.osGroup }}${{ parameters.osSubgroup }}_${{ parameters.archType }}_${{ parameters.buildConfig }}
       displayName: 'CoreCLR product build'
 
+  # Zip product native assets for use by Tests
+  - template: /eng/pipelines/common/upload-artifact-step.yml
+    parameters:
+      rootFolder: $(Build.SourcesDirectory)/artifacts/tests/coreclr/${{ parameters.osGroup }}.${{ parameters.archType }}.$(buildConfigUpper)
+      includeRootFolder: false
+      archiveType: $(archiveType)
+      tarCompression: $(tarCompression)
+      archiveExtension: $(archiveExtension)
+      artifactName: CoreCLRNativeTestArtifacts_${{ parameters.osGroup }}${{ parameters.osSubgroup }}_${{ parameters.archType }}_${{ parameters.buildConfig }}
+      displayName: 'native test components'
+
   # Zip Libraries Build Output
   - template: /eng/pipelines/common/upload-artifact-step.yml
     parameters:

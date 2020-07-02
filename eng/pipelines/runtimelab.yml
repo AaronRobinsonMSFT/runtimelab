@@ -108,7 +108,6 @@ jobs:
     jobParameters:
       testGroup: innerloop
       liveLibrariesBuildConfig: Release
-      overrideDependsOn: true
       dependsOn:
       - build_Linux_x64_Checked_
       - build_Linux_x64_Release_
@@ -127,7 +126,6 @@ jobs:
     jobParameters:
       testGroup: innerloop
       liveLibrariesBuildConfig: Release
-      overrideDependsOn: true
       dependsOn:
       - coreclr_common_test_build_p0_AnyOS_AnyCPU_Checked
 
@@ -142,7 +140,6 @@ jobs:
     jobParameters:
       testGroup: innerloop
       liveLibrariesBuildConfig: Release
-      overrideDependsOn: true
       dependsOn:
       - coreclr_common_test_build_p0_AnyOS_AnyCPU_Checked
       - build_Windows_NT_x64_Checked_
@@ -160,7 +157,6 @@ jobs:
       isOfficialBuild: false
       liveRuntimeBuildConfig: Release
       testScope: innerloop
-      overrideDependsOn: true
       dependsOn:
       - build_Linux_x64_Release_
 
@@ -174,7 +170,6 @@ jobs:
       isOfficialBuild: false
       liveRuntimeBuildConfig: Release
       testScope: innerloop
-      overrideDependsOn: true
       dependsOn:
       - build_Windows_NT_x64_Release_
 
@@ -195,7 +190,6 @@ jobs:
       liveRuntimeBuildConfig: Release
       dependsOnTestBuildConfiguration: Release
       dependsOnTestArchitecture: x64
-      overrideDependsOn: true
       dependsOn:
       - libraries_test_build_Linux_x64_Release
 
@@ -213,6 +207,5 @@ jobs:
       liveRuntimeBuildConfig: Release
       dependsOnTestBuildConfiguration: Release
       dependsOnTestArchitecture: x64
-      overrideDependsOn: true
       dependsOn:
       - libraries_test_build_Windows_NT_x64_Release
