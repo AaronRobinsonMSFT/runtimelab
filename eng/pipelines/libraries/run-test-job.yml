@@ -22,7 +22,6 @@ parameters:
   # stress modes that each test will be run with. This is the same usage as 'testGroup' in
   # eng/pipelines/common/templates/runtimes/run-test-job.yml.
   coreclrTestGroup: ''
-  overrideDependsOn: false
   dependsOn: []
 
 jobs:
@@ -52,9 +51,9 @@ jobs:
         testDisplayName: ${{ parameters.runtimeFlavor }}_interpreter_${{ parameters.liveRuntimeBuildConfig }}
 
       dependsOn:
-      - ${{ if eq(parameters.overrideDependsOn, 'true') }}:
+      - ${{ if ne(parameters.dependsOn[0], '') }}:
         - ${{ parameters.dependsOn }}
-      - ${{ if ne(parameters.overrideDependsOn, 'true') }}:
+      - ${{ if eq(parameters.dependsOn[0], '') }}:
         - ${{ if notIn(parameters.framework, 'allConfigurations', 'net472') }}:
           - ${{ format('libraries_build_{0}{1}_{2}_{3}', parameters.osGroup, parameters.osSubgroup, parameters.archType, parameters.buildConfig) }}
           - ${{ format('libraries_test_build_{0}_{1}_{2}', parameters.osGroup, parameters.dependsOnTestArchitecture, parameters.dependsOnTestBuildConfiguration) }}

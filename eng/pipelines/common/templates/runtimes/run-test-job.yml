@@ -20,7 +20,6 @@ parameters:
   pool: ''
   runtimeFlavor: 'coreclr'
   runtimeFlavorDisplayName: 'CoreCLR'
-  overrideDependsOn: false
   dependsOn: []
 
 ### Test run job
@@ -49,10 +48,10 @@ jobs:
     ${{ if eq(variables['System.TeamProject'], 'internal') }}:
       continueOnError: true
 
-    ${{ if eq(parameters.overrideDependsOn, 'true')}}:
+    ${{ if ne(parameters.dependsOn[0], '') }}:
       dependsOn: ${{ parameters.dependsOn }}
 
-    ${{ if ne(parameters.overrideDependsOn, 'true')}}:
+    ${{ if eq(parameters.dependsOn[0], '') }}:
       dependsOn:
       - ${{ if eq(parameters.testGroup, 'innerloop') }}:
         - '${{ parameters.runtimeFlavor }}_common_test_build_p0_AnyOS_AnyCPU_${{parameters.buildConfig }}'

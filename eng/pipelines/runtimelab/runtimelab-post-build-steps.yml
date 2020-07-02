@@ -9,8 +9,6 @@ steps:
   
   - template: /eng/pipelines/libraries/prepare-publish-for-tests.yml
 
-  - template: /eng/pipelines/libraries/prepare-shared-framework-for-publish.yml
-
   # Zip CoreCLR Build Output
   - template: /eng/pipelines/common/upload-artifact-step.yml
     parameters:

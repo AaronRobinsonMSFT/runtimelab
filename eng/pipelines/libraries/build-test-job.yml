@@ -16,7 +16,6 @@ parameters:
   variables: {}
   condition: true
   runTests: false
-  overrideDependsOn: false
   dependsOn: []
 
 jobs:
@@ -39,9 +38,9 @@ jobs:
       displayName: 'Test Build'
 
       dependsOn:
-      - ${{ if eq(parameters.overrideDependsOn, 'true') }}:
+      - ${{ if ne(parameters.dependsOn[0], '') }}:
         - ${{ parameters.dependsOn }}
-      - ${{ if ne(parameters.overrideDependsOn, 'true') }}:
+      - ${{ if eq(parameters.dependsOn[0], '') }}:
         - ${{ format('libraries_build_{0}{1}_{2}_{3}', parameters.osGroup, parameters.osSubgroup, parameters.archType, parameters.buildConfig) }}
         # Libraries Test also depends on Product, now that the libraries build only depends on corelib
         - ${{ if ne(parameters.liveRuntimeBuildConfig, '') }}:

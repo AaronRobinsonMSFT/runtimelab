@@ -53,18 +53,18 @@ jobs:
 - template: /eng/pipelines/common/checkout-job.yml
 
 #
-# Build with Debug config and checked runtimeConfiguration
+# Build with Debug config and Checked runtimeConfiguration
 #
 - template: /eng/pipelines/common/platform-matrix.yml
   parameters:
     jobTemplate: /eng/pipelines/common/global-build-job.yml
-    buildConfig: checked
+    buildConfig: Checked
     platforms:
     - Linux_x64
     - Windows_NT_x64
     jobParameters:
       testGroup: innerloop
-      buildArgs: -s clr+libs+installer -c debug -runtimeConfiguration checked
+      buildArgs: -s clr+libs+installer -c debug -runtimeConfiguration Checked
       extraStepsTemplate: /eng/pipelines/runtimelab/runtimelab-post-build-steps.yml
 
 #
@@ -83,7 +83,7 @@ jobs:
       extraStepsTemplate: /eng/pipelines/runtimelab/runtimelab-post-build-steps.yml
 
 #
-# Build with Release allConfigurations to produce packages and run tests
+# Build with Release allConfigurations to produce packages
 #
 - template: /eng/pipelines/common/platform-matrix.yml
   parameters:
@@ -102,7 +102,7 @@ jobs:
 - template: /eng/pipelines/common/platform-matrix.yml
   parameters:
     jobTemplate: /eng/pipelines/common/templates/runtimes/build-test-job.yml
-    buildConfig: checked
+    buildConfig: Checked
     platforms:
     - Linux_x64
     jobParameters:
@@ -110,17 +110,16 @@ jobs:
       liveLibrariesBuildConfig: Release
       overrideDependsOn: true
       dependsOn:
-      - build_Linux_x64_checked_
+      - build_Linux_x64_Checked_
       - build_Linux_x64_Release_
 
 #
 # CoreCLR Test executions using live libraries
-# Only when CoreCLR is changed
 #
 - template: /eng/pipelines/common/platform-matrix.yml
   parameters:
     jobTemplate: /eng/pipelines/common/templates/runtimes/run-test-job.yml
-    buildConfig: checked
+    buildConfig: Checked
     platforms:
     - Linux_x64
     helixQueueGroup: pr
@@ -130,12 +129,12 @@ jobs:
       liveLibrariesBuildConfig: Release
       overrideDependsOn: true
       dependsOn:
-      - coreclr_common_test_build_p0_AnyOS_AnyCPU_checked
+      - coreclr_common_test_build_p0_AnyOS_AnyCPU_Checked
 
 - template: /eng/pipelines/common/platform-matrix.yml
   parameters:
     jobTemplate: /eng/pipelines/common/templates/runtimes/run-test-job.yml
-    buildConfig: checked
+    buildConfig: Checked
     platforms:
     - Windows_NT_x64
     helixQueueGroup: pr
@@ -145,8 +144,8 @@ jobs:
       liveLibrariesBuildConfig: Release
       overrideDependsOn: true
       dependsOn:
-      - coreclr_common_test_build_p0_AnyOS_AnyCPU_checked
-      - build_Windows_NT_x64_checked_
+      - coreclr_common_test_build_p0_AnyOS_AnyCPU_Checked
+      - build_Windows_NT_x64_Checked_
 
 #
 # Libraries Test Build
@@ -181,7 +180,6 @@ jobs:
 
 #
 # Libraries Release Test Execution against a release coreclr runtime
-# Only when the PR contains a libraries change
 #
 - template: /eng/pipelines/common/platform-matrix.yml
   parameters:

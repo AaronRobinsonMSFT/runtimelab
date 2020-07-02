@@ -97,10 +97,9 @@ jobs:
             displayName: Disk Usage after Build
 
         - ${{ if eq(parameters.runTests, false) }}:
-          - ${{ if ne(parameters.isOfficialBuild, true) }}:            
-            - template: /eng/pipelines/libraries/prepare-publish-for-tests.yml
-
-          - template: /eng/pipelines/libraries/prepare-shared-framework-for-publish.yml
+          - template: /eng/pipelines/libraries/prepare-publish-for-tests.yml
+            parameters:
+              isOfficialBuild: ${{ parameters.isOfficialBuild }}
           
           - task: CopyFiles@2
             displayName: Prepare docs folder to publish
